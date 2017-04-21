@@ -12,5 +12,7 @@ class User < ActiveRecord::Base
 	                 uniqueness: { case_sensitive: false }#大文字小文字を区別しない#Railsにおける一意性のvalidation
 
 	 has_secure_password
-	 validates :password, presence: true, length: { minimum: 6}
+	 validates :password, presence: true,
+	                        length: { minimum: 6},
+	                     allow_nil: true
 end
