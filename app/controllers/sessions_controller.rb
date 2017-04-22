@@ -2,12 +2,12 @@ class SessionsController < ApplicationController
   def new
   end
 
-  def create
+  def create #session = ログインの本質はlog_inメソッドとそれによって取れるcurrent_user
   	@user = User.find_by(email: params[:session][:email].downcase)
   	if @user && @user.authenticate(params[:session][:password])
   		log_in @user
-  		params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-  		redirect_to @user
+  		params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
+  		redirect_back_or @user
   	else
   		flash.now[:danger] = "もう一度お願いします。"
   		render 'new'

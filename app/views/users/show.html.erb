@@ -1,5 +1,6 @@
 <% provide(:title, @user.name) %>
 <h1>
  <%= @user.name %>
+ <%= link_to "ログアウト", logout_path, method: :delete %>
  <!-- paper_clipを使いimage_tag -->
 </h1>
