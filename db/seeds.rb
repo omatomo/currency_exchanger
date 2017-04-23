@@ -1,5 +1,5 @@
-User.create!(name:  "田中友寛",
-             email: "ajadj3@gmail.com",
+User.create!(name:  "小俣友寛",
+             email: "ajadj4@gmail.com",
              password:              "tomohiro17",
              password_confirmation: "tomohiro17",
              admin: true,

@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-	attr_accessor :remember_token, :activation_token#カラムにアクセスするために必要なメソッドを定義する。カラムはないがメソッドとして一時的に保存できる. ゲッターとセッターを一度にできる。
+	attr_accessor :remember_token, :activation_token, :reset_token#カラムにアクセスするために必要なメソッドを定義する。カラムはないがメソッドとして一時的に保存できる. ゲッターとセッターを一度にできる。
 	before_save :downcase_email
 	before_create :create_activation_digest
 	#バリデーションに成功し、実際にオブジェクトが保存される直前で実行されます。INSERTされる場合も、UPDATEされる場合も呼び出されます。
@@ -48,6 +48,31 @@ class User < ActiveRecord::Base
   	BCrypt::Password.new(digest).is_password?(token)
   end
 
+  def activate
+  	update_attribute(:activated, true)
+    update_attribute(:activated_at, true)
+  end
+
+  def send_activation_email
+  	UserMailer.account_activation(self).deliver_now
+  end
+
+  def create_reset_digest
+  	self.reset_token = User.new_token
+  	update_attribute(:reset_digest, User.digest(reset_token))
+  	update_attribute(:reset_sent_at, Time.zone.now)
+  end
+
+  def send_password_reset_email
+  	UserMailer.password_reset(self).deliver_now
+  end
+
+  def password_reset_expired?
+    reset_sent_at < 2.hours.ago
+  end
+
+  private
+
   def downcase_email
   	self.email = email.downcase
   end
@@ -57,12 +82,4 @@ class User < ActiveRecord::Base
   	self.activation_digest = User.digest(activation_token)
   end
 
-  def activate
-  	update_attribute(:activated, true)
-    update_attribute(:activated_at, true)
-  end
-
-  def send_activation_email
-  	UserMailer.account_activation(self).deliver_now
-  end
 end
