@@ -1,0 +1,5 @@
+<%= form_for(current_user.activerelationships.build, remote: true) do |f| %>
+<!-- @user = User.newみたいなことをform_forの引数の中で行なっている -->
+  <div><%= hidden_field_tag :followed_id, @user.id %></div>
+  <%= f.submit "Follow", class: "btn btn-primary" %>
+<% end %>

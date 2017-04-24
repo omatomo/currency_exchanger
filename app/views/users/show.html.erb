@@ -1,6 +1,16 @@
 <% provide(:title, @user.name) %>
-<h1>
- <%= @user.name %>
- <%= link_to "ログアウト", logout_path, method: :delete %>
- <!-- paper_clipを使いimage_tag -->
-</h1>
+<div>
+  <aside>
+    <section>
+      <h1>
+        <%= @user.name %>
+      </h1>
+    </section>
+    <section>
+      <%= render 'shared/stats' %>
+    </section>
+  </aside>
+  <div>
+    <%= render 'follow_form' if logged_in? %>
+  </div>
+</div>

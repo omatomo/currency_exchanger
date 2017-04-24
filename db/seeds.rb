@@ -6,7 +6,7 @@ User.create!(name:  "小俣友寛",
              activated: true,
              activated_at: Time.zone.now)
 
-5.times do |n|
+20.times do |n|
   name  = Faker::Name.name
   email = "example-#{n+1}@railstutorial.org"
   password = "password"
@@ -17,3 +17,10 @@ User.create!(name:  "小俣友寛",
                activated: true,
                activated_at: Time.zone.now)
 end
+
+users = User.all
+user  = users.first
+following = users[2..21]
+followers = users[3..21]
+following.each { |followed| user.follow(followed) }
+followers.each { |follower| follower.follow(user) }

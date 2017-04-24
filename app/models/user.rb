@@ -4,6 +4,13 @@ class User < ActiveRecord::Base
 	before_create :create_activation_digest
 	#バリデーションに成功し、実際にオブジェクトが保存される直前で実行されます。INSERTされる場合も、UPDATEされる場合も呼び出されます。
 
+ #has_many :tweets(user.tweetsでtweetテーブルのuser_idカラムがそのuserのものを全て取ってくる。)
+	has_many :activerelationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+	has_many :following, through: :activerelationships, source: :followed
+
+	has_many :passiverelationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+	has_many :followers, through: :passiverelationships, source: :follower
+
 	validates :name,  presence: true,
 	                    length: { maximum: 50}
 
@@ -69,6 +76,18 @@ class User < ActiveRecord::Base
 
   def password_reset_expired?
     reset_sent_at < 2.hours.ago
+  end
+
+  def follow(other_user)
+  	self.activerelationships.create(followed_id: other_user.id)
+  end
+
+  def unfollow(other_user)
+  	self.activerelationships.find_by(followed_id: other_user.id).destroy
+  end
+
+  def following?(other_user)
+  	self.following.include?(other_user)
   end
 
   private
