@@ -1,0 +1,14 @@
+- provide(:title, @title)
+%div
+  %aside
+    %section
+      %h1= @user.name
+      %span= link_to "view my profile", @user
+    %section
+      = render 'shared/stats'
+  %div
+    %h3= @title
+    - if @users.any?
+      %ul
+        = render @users
+      = will_paginate

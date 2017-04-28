@@ -1,0 +1,10 @@
+- provide(:title, @user.name)
+%div
+  %aside
+    %section
+      %h1
+        = @user.name
+    %section
+      = render 'shared/stats'
+  %div
+    = render 'follow_form' if logged_in?
