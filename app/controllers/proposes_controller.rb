@@ -1,5 +1,6 @@
 class ProposesController < ApplicationController
   def new
+    @propose = Propose.new
   end
 
   def create

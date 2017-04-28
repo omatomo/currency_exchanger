@@ -1,2 +1,9 @@
-%h1 Proposes#new
-%p Find me in app/views/proposes/new.html.erb
+%h1 通貨交換作成
+= form_for(@propose) do |f|
+  = render 'shared/error_messages', object: f.object
+  = f.label :subject, "一言"
+  = f.text_field :subject
+  = f.label :comment, "内容"
+  = f.text_field :subject
+  = f.label :have_currency_id, "交換してほしい通貨"
+  = f.select
