@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  subject: MyString
+  comment: MyString
+  amount: 1
+  have_currency_id: 1
+  want_currency_id: 1
+  user_id: 
+
+two:
+  subject: MyString
+  comment: MyString
+  amount: 1
+  have_currency_id: 1
+  want_currency_id: 1
+  user_id: 

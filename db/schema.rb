@@ -11,7 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170423084416) do
+ActiveRecord::Schema.define(version: 20170428084731) do
+
+  create_table "proposes", force: :cascade do |t|
+    t.string   "subject",          limit: 255
+    t.text     "comment",          limit: 65535
+    t.integer  "amount",           limit: 4
+    t.integer  "have_currency_id", limit: 4,     null: false
+    t.integer  "want_currency_id", limit: 4,     null: false
+    t.integer  "user_id",          limit: 4
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  add_index "proposes", ["have_currency_id"], name: "index_proposes_on_have_currency_id", using: :btree
+  add_index "proposes", ["user_id"], name: "index_proposes_on_user_id", using: :btree
+  add_index "proposes", ["want_currency_id"], name: "index_proposes_on_want_currency_id", using: :btree
 
   create_table "relationships", force: :cascade do |t|
     t.integer  "follower_id", limit: 4
@@ -41,4 +56,5 @@ ActiveRecord::Schema.define(version: 20170423084416) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
+  add_foreign_key "proposes", "users"
 end
