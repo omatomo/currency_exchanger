@@ -28,6 +28,7 @@ gem 'will_paginate',           '3.0.7'
 gem 'bootstrap-will_paginate', '0.0.10'
 gem 'haml-rails'
 gem 'erb2haml'
+gem 'mechanize'
 
 
 # Use ActiveModel has_secure_password

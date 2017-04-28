@@ -11,7 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170428084731) do
+ActiveRecord::Schema.define(version: 20170428100702) do
+
+  create_table "currencies", force: :cascade do |t|
+    t.string "currency", limit: 255
+    t.string "image",    limit: 255
+  end
 
   create_table "proposes", force: :cascade do |t|
     t.string   "subject",          limit: 255
