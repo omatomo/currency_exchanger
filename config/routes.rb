@@ -1,5 +1,19 @@
 Rails.application.routes.draw do
 
+  get 'proposes/new'
+
+  get 'proposes/create'
+
+  get 'proposes/edit'
+
+  get 'proposes/update'
+
+  get 'proposes/destroy'
+
+  get 'proposes/index'
+
+  get 'proposes/show'
+
  get     'signup' => 'users#new'
  resources :users do
   member do
