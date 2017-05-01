@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
 	has_many :passiverelationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
 	has_many :followers, through: :passiverelationships, source: :follower
 
+	has_many :proposes
+
 	validates :name,  presence: true,
 	                    length: { maximum: 50}
 

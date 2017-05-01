@@ -1,0 +1,17 @@
+- provide(:title, "")
+.content
+  .username
+    = propose.user.name
+  .comment
+    = propose.comment
+  .havecurrency
+    = propose.amount
+    = propose.have_currency.currency
+  .wantcurrency
+    = propose.want_currency.currency
+  .propose_detail
+    = link_to "詳細", propose_path(propose)
+- if !current_user.nil? && current_user.id == propose.user_id
+  .propose_handle
+    = link_to "編集", edit_propose_path(propose)
+    = link_to "削除", propose_path(propose), method: :delete

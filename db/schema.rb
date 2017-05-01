@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170428100702) do
+ActiveRecord::Schema.define(version: 20170429101122) do
 
   create_table "currencies", force: :cascade do |t|
     t.string "currency", limit: 255
@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(version: 20170428100702) do
   end
 
   create_table "proposes", force: :cascade do |t|
-    t.string   "subject",          limit: 255
     t.text     "comment",          limit: 65535
     t.integer  "amount",           limit: 4
     t.integer  "have_currency_id", limit: 4,     null: false

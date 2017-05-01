@@ -1,2 +1,6 @@
-%h1 Proposes#index
-%p Find me in app/views/proposes/index.html.erb
+- provide(:title, '')
+%h1 通貨交換
+= link_to "新規POST", new_propose_path
+= will_paginate
+= render @proposes
+= will_paginate
