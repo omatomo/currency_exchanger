@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  post_user_id: 1
+  request_user_id: 1
+  propose_id: 
+  negotiated: false
+
+two:
+  post_user_id: 1
+  request_user_id: 1
+  propose_id: 
+  negotiated: false

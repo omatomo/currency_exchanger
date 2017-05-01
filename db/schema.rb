@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170429101122) do
+ActiveRecord::Schema.define(version: 20170501100010) do
 
   create_table "currencies", force: :cascade do |t|
     t.string "currency", limit: 255
@@ -43,6 +43,19 @@ ActiveRecord::Schema.define(version: 20170429101122) do
   add_index "relationships", ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true, using: :btree
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id", using: :btree
 
+  create_table "request_matches", force: :cascade do |t|
+    t.integer  "post_user_id",    limit: 4
+    t.integer  "request_user_id", limit: 4
+    t.integer  "propose_id",      limit: 4
+    t.boolean  "negotiated",                default: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+  end
+
+  add_index "request_matches", ["post_user_id"], name: "index_request_matches_on_post_user_id", using: :btree
+  add_index "request_matches", ["propose_id"], name: "index_request_matches_on_propose_id", using: :btree
+  add_index "request_matches", ["request_user_id"], name: "index_request_matches_on_request_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "name",              limit: 255
     t.string   "email",             limit: 255
@@ -61,4 +74,5 @@ ActiveRecord::Schema.define(version: 20170429101122) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
   add_foreign_key "proposes", "users"
+  add_foreign_key "request_matches", "proposes"
 end
