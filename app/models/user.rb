@@ -11,6 +11,15 @@ class User < ActiveRecord::Base
 	has_many :passiverelationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
 	has_many :followers, through: :passiverelationships, source: :follower
 
+
+  has_many :post_creates,    class_name: "RequestMatch", foreign_key: "post_user_id", dependent: :destroy
+  has_many :requesters, through: :post_creates, source: :request_user
+
+  has_many :request_creates, class_name: "RequestMatch", foreign_key: "request_user_id"
+  has_many :posters, through: :request_creates, source: :post_user
+
+
+
 	has_many :proposes
 
 	validates :name,  presence: true,

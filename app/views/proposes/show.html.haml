@@ -13,3 +13,22 @@
   .propose_handle
     = link_to "編集", edit_propose_path(@propose)
     = link_to "削除", propose_path(@propose), method: :delete
+- else
+  - unless current_user.request_creates.map(&:propose_id).include?(@propose.id)
+    = form_for(current_user.request_creates.build) do |f|
+      = hidden_field_tag :post_user_id, @propose.user_id
+      = hidden_field_tag :propose_id,   params[:id]
+      = f.submit "リクエストする"
+  - else
+    = form_for(current_user.request_creates.find_by(propose_id: @propose.id), method: :delete) do |f|
+      = hidden_field_tag :propose_id, @propose.id
+      = f.submit "リクエストをキャンセルする。"
+    -# (propose_id: @propose.id, post_user_id: @propose.user_id)
+    -# propose.request_match.request_user_id?(current_user)
+    -# current_user.request_creates.includes?(@propose.user)
+
+    -# def already_request?(user)
+    -#   current_user.
+    -# end
+
+    -# mapでproposeを取ってくる

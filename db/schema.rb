@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170501100010) do
+ActiveRecord::Schema.define(version: 20170501140159) do
 
   create_table "currencies", force: :cascade do |t|
     t.string "currency", limit: 255
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20170501100010) do
     t.datetime "updated_at",                                null: false
   end
 
+  add_index "request_matches", ["post_user_id", "request_user_id", "propose_id"], name: "three_id_column_must_be_unique", unique: true, using: :btree
   add_index "request_matches", ["post_user_id"], name: "index_request_matches_on_post_user_id", using: :btree
   add_index "request_matches", ["propose_id"], name: "index_request_matches_on_propose_id", using: :btree
   add_index "request_matches", ["request_user_id"], name: "index_request_matches_on_request_user_id", using: :btree

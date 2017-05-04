@@ -2,6 +2,7 @@ class Propose < ActiveRecord::Base
   belongs_to :user
   belongs_to :have_currency, class_name: "Currency"
   belongs_to :want_currency, class_name: "Currency"
+  has_many :request_match
 
   validates :comment,          presence: true
   validates :have_currency_id, presence: true
