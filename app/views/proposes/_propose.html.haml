@@ -1,5 +1,5 @@
 - provide(:title, "")
-.content
+%li.propose_content
   .username
     = propose.user.name
   .comment
@@ -9,9 +9,13 @@
     = propose.have_currency.currency
   .wantcurrency
     = propose.want_currency.currency
+  .likes
+    = render 'likes/like', propose: propose
   .propose_detail
     = link_to "詳細", propose_path(propose)
-- if !current_user.nil? && current_user.id == propose.user_id
-  .propose_handle
-    = link_to "編集", edit_propose_path(propose)
-    = link_to "削除", propose_path(propose), method: :delete
+  - if !current_user.nil? && current_user.id == propose.user_id
+    .propose_handle
+      = link_to "編集", edit_propose_path(propose)
+      = link_to "削除", propose_path(propose), method: :delete
+
+

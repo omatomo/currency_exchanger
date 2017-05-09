@@ -3,6 +3,7 @@ class Propose < ActiveRecord::Base
   belongs_to :have_currency, class_name: "Currency"
   belongs_to :want_currency, class_name: "Currency"
   has_many :request_match
+  has_many :likes, dependent: :destroy
 
   validates :comment,          presence: true
   validates :have_currency_id, presence: true
@@ -22,6 +23,10 @@ class Propose < ActiveRecord::Base
   	elsif amount <= 0
   		errors.add(:amount, "が不正な値です。")
   	end
+  end
+
+  def like_user(user_id)
+   likes.find_by(user_id: user_id)
   end
 
 end

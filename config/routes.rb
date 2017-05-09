@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'likes/create'
+
+  get 'likes/destroy'
+
  get     'signup' => 'users#new'
  resources :users do
   member do
@@ -14,7 +18,9 @@ Rails.application.routes.draw do
  resources :activations, only: [:edit]
  resources :password_resets, only: [:new, :create, :edit, :update]
  resources :relationships, only: [:create, :destroy]
- resources :proposes
+ resources :proposes do
+ 	resources :likes, only: [:create, :destroy]
+ end
  resources :request_matches, only: [:create, :destroy]
 
 end

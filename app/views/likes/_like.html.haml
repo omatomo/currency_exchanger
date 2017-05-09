@@ -1,0 +1,12 @@
+- if logged_in?
+  - if propose.like_user(current_user.id)
+    = render 'likes/destroyLike', propose: propose
+  - else
+    -# = button_to propose_likes_path(propose), id: "like-button", remote: true do
+    -#   = image_tag("1494187707_star.svg")
+    = render 'likes/makeLike', propose: propose
+- else
+  %span
+    .fa.fa-star-o{"aria-hidden" => "true", style: "color: yellow"}
+  %span.like_count
+    = propose.likes_count

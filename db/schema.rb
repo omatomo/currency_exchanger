@@ -11,12 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170501140159) do
+ActiveRecord::Schema.define(version: 20170507113953) do
 
   create_table "currencies", force: :cascade do |t|
     t.string "currency", limit: 255
     t.string "image",    limit: 255
   end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4, null: false
+    t.integer  "propose_id", limit: 4, null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "likes", ["propose_id"], name: "index_likes_on_propose_id", using: :btree
+  add_index "likes", ["user_id", "propose_id"], name: "index_likes_on_user_id_and_propose_id", unique: true, using: :btree
+  add_index "likes", ["user_id"], name: "index_likes_on_user_id", using: :btree
 
   create_table "proposes", force: :cascade do |t|
     t.text     "comment",          limit: 65535
@@ -26,6 +37,7 @@ ActiveRecord::Schema.define(version: 20170501140159) do
     t.integer  "user_id",          limit: 4
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.integer  "likes_count",      limit: 4
   end
 
   add_index "proposes", ["have_currency_id"], name: "index_proposes_on_have_currency_id", using: :btree
@@ -74,6 +86,8 @@ ActiveRecord::Schema.define(version: 20170501140159) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
+  add_foreign_key "likes", "proposes"
+  add_foreign_key "likes", "users"
   add_foreign_key "proposes", "users"
   add_foreign_key "request_matches", "proposes"
 end
