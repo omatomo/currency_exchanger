@@ -18,9 +18,11 @@ class User < ActiveRecord::Base
   has_many :request_creates, class_name: "RequestMatch", foreign_key: "request_user_id"
   has_many :posters, through: :request_creates, source: :post_user
 
+  mount_uploader :image, ImageUploader
 
 
-	has_many :proposes
+
+	has_many :proposes, dependent: :destroy
 
 	validates :name,  presence: true,
 	                    length: { maximum: 50}

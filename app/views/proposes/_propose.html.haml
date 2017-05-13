@@ -1,9 +1,12 @@
 - provide(:title, "")
-%li.propose_content
+.propose_content
   .username
-    = propose.user.name
-  .comment
-    = propose.comment
+    = link_to propose.user.name, user_path(propose.user)
+  .userphoto
+    - if propose.user.image.url
+      = link_to (image_tag propose.user.image.thumb, :class => "user_image"), user_path(propose.user)
+    - else
+      = link_to (image_tag 'RS=^ADBhf8bg8a_DFSi.jpg', :size => "50x50", :class => "user_image"), user_path(propose.user)
   .havecurrency
     = propose.amount
     = propose.have_currency.currency
@@ -12,7 +15,7 @@
   .likes
     = render 'likes/like', propose: propose
   .propose_detail
-    = link_to "詳細", propose_path(propose)
+    = button_to "詳細を見る", propose_path(propose), method: :get
   - if !current_user.nil? && current_user.id == propose.user_id
     .propose_handle
       = link_to "編集", edit_propose_path(propose)

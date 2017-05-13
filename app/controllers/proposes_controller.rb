@@ -29,7 +29,7 @@ class ProposesController < ApplicationController
   end
 
   def destroy
-    Propose.find(params[:id]).destroy
+    propose = Propose.find(params[:id]).destroy
     flash[:success] = "投稿を削除しました。"
     redirect_to proposes_path
   end
@@ -42,6 +42,48 @@ class ProposesController < ApplicationController
     @propose = Propose.find(params[:id])
   end
 
+  def search
+    have = params[:propose][:have_currency_id]
+    want = params[:propose][:want_currency_id]
+    hello  = Currency.find(have) if !have.blank?
+    fack   = Currency.find(want) if !want.blank?
+    if want.present? && have.present?
+      proposes = Propose.where(have_currency_id: want).where(want_currency_id: have)
+      if proposes.blank?
+        @proposes = "該当する結果は見つかりませんでした。"
+        render 'index'
+      else
+        @proposes = proposes.paginate(page: params[:page]).limit(5)
+        flash.now[:success] = "#{fack.currency} を所持している人と, #{hello.currency} を必要としている人の検索結果一覧です。"
+        render 'index'
+      end
+    elsif want.blank? && have.blank?
+      flash[:danger] = "不正な値です。"
+      @proposes = Propose.paginate(page: params[:page]).limit(5)
+      render 'index'
+    elsif have && want.blank?
+      proposes = Propose.where(want_currency_id: have)
+      if proposes.blank?
+        @proposes = "該当する結果は見つかりませんでした。"
+        render 'index'
+      else
+        @proposes = proposes.paginate(page: params[:page]).limit(5)
+        flash.now[:success] = "#{hello.currency} を必要としている人の検索結果一覧です。"
+        render 'index'
+      end
+    elsif want && have.blank?
+      proposes = Propose.where(have_currency_id: want)
+      if proposes.blank?
+        @proposes = "該当する結果は見つかりませんでした。"
+        render 'index'
+      else
+        @proposes = proposes.paginate(page: params[:page]).limit(5)
+        flash.now[:success] = "#{fack.currency} を所持している人の検索結果一覧です。"
+        render 'index'
+      end
+    end
+  end
+
   private
   def propose_params
     params.require(:propose).permit(:comment, :amount, :have_currency_id, :want_currency_id).merge(user_id: current_user.id)
@@ -49,7 +91,6 @@ class ProposesController < ApplicationController
 
   def right_user
     @propose = Propose.find(params[:id])
-    flash[:alert] = "ログインしてください。"
-    redirect_to(root_url) unless current_user?(@propose.user)
+    redirect_to(login_url) unless current_user?(@propose.user)
   end
 end

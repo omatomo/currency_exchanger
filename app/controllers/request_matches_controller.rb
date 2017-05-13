@@ -1,7 +1,7 @@
 class RequestMatchesController < ApplicationController
   def create
   	current_user.request_creates.create(post_user_id: params[:post_user_id], propose_id: params[:propose_id])
-  	rediret_to root_url
+  	redirect_to root_url
   end
 
   def destroy

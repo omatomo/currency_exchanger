@@ -1,8 +1,12 @@
 - provide(:title, '')
-%h1 通貨交換
 .fackoff
   = link_to "新規POST", new_propose_path
-%ul
-  = render @proposes
-.will_paginate
-  = will_paginate
+- if @proposes == "該当する結果は見つかりませんでした。"
+  = @proposes
+  = link_to "(前のページへ戻る)", :back
+- else
+  %ul
+    = render @proposes
+  .will_paginate
+    = will_paginate
+

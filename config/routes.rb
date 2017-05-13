@@ -18,9 +18,14 @@ Rails.application.routes.draw do
  resources :activations, only: [:edit]
  resources :password_resets, only: [:new, :create, :edit, :update]
  resources :relationships, only: [:create, :destroy]
+
  resources :proposes do
- 	resources :likes, only: [:create, :destroy]
+   resources :likes, only: [:create, :destroy]
+ 	 collection do
+      get 'search'
+   end
  end
+
  resources :request_matches, only: [:create, :destroy]
 
 end

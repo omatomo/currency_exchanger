@@ -1,3 +1,22 @@
-// Place all the styles related to the proposes controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.propose_content{
+	display: inline-block;
+	float: left;
+	text-align: center;
+}
+
+.fackoff{
+	text-align: center;
+	height: 50px;
+}
+
+.will_paginate{
+	clear: both;
+	text-align: center;
+}
+
+.user_image{
+	border-radius: 90%;
+	height: 50px;
+	width:  50px;
+	border: 1px solid black;
+}

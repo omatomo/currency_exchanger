@@ -4,17 +4,5 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "./fontawsome";
-.propose_content{
-	display: inline-block;
-	float: left;
-	text-align: center;
-}
-
-.fackoff{
-	text-align: center;
-	height: 50px;
-}
-
-.will_paginate{
-	clear: both;
-}
+@import "./proposes";
+@import "./header";

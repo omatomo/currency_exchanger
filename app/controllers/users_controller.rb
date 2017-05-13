@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
 
   def index
-  	@users = User.paginate(page: params[:page]).limit(3)
+  	@users = User.paginate(page: params[:page]).limit(15)
   end
 
 	def show
@@ -38,6 +38,8 @@ class UsersController < ApplicationController
   def update
   	@user = User.find(params[:id])
   	if @user.update_attributes(user_params)
+      flash[:success] = "編集に成功しました。"
+      redirect_to root_url
   	else
   	 render 'edit'
     end
@@ -65,7 +67,7 @@ class UsersController < ApplicationController
 
   private
   def user_params
-  	params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  	params.require(:user).permit(:name, :email, :password, :password_confirmation, :image)
   end
 
 

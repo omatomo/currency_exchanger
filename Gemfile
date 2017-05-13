@@ -32,6 +32,8 @@ gem 'erb2haml'
 gem 'mechanize'
 gem 'pry-rails'
 gem "font-awesome-rails"
+gem 'carrierwave'
+gem 'rmagick'
 
 
 

@@ -2,7 +2,7 @@ class Propose < ActiveRecord::Base
   belongs_to :user
   belongs_to :have_currency, class_name: "Currency"
   belongs_to :want_currency, class_name: "Currency"
-  has_many :request_match
+  has_many :request_match, dependent: :destroy
   has_many :likes, dependent: :destroy
 
   validates :comment,          presence: true
