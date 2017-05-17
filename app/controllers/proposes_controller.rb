@@ -11,7 +11,7 @@ class ProposesController < ApplicationController
       flash[:success] = "投稿を完了しました。リクエストを待ちましょう"
       redirect_to root_url
     else
-      flash[:danger] = "もう一度確認お願いします。"
+      flash.now[:danger] = "もう一度確認お願いします。"
       render 'new'
     end
   end
@@ -35,7 +35,7 @@ class ProposesController < ApplicationController
   end
 
   def index
-    @proposes = Propose.paginate(page: params[:page]).limit(5)
+    # @proposes = Propose.paginate(page: params[:page]).limit(8)
   end
 
   def show
@@ -43,10 +43,13 @@ class ProposesController < ApplicationController
   end
 
   def search
-    have = params[:propose][:have_currency_id]
-    want = params[:propose][:want_currency_id]
-    hello  = Currency.find(have) if !have.blank?
-    fack   = Currency.find(want) if !want.blank?
+    have         = params[:propose][:have_currency_id]
+    want         = params[:propose][:want_currency_id]
+    hello        = Currency.find(have) if !have.blank?
+    thanks       = Currency.find(want) if !want.blank?
+    # hello_image  =  view_context.image_path hello.image
+    # thanks_image =  view_context.image_path thanks.image
+
     if want.present? && have.present?
       proposes = Propose.where(have_currency_id: want).where(want_currency_id: have)
       if proposes.blank?
@@ -54,12 +57,12 @@ class ProposesController < ApplicationController
         render 'index'
       else
         @proposes = proposes.paginate(page: params[:page]).limit(5)
-        flash.now[:success] = "#{fack.currency} を所持している人と, #{hello.currency} を必要としている人の検索結果一覧です。"
+        flash.now[:success] = "#{thanks.currency} を所持している人と, #{hello.currency} を必要としている人の検索結果一覧です。"
         render 'index'
       end
     elsif want.blank? && have.blank?
-      flash[:danger] = "不正な値です。"
-      @proposes = Propose.paginate(page: params[:page]).limit(5)
+      flash.now[:danger] = "不正な値です。"
+      # @proposes = Propose.paginate(page: params[:page]).limit(5)
       render 'index'
     elsif have && want.blank?
       proposes = Propose.where(want_currency_id: have)

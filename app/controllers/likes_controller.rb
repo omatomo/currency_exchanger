@@ -1,4 +1,5 @@
 class LikesController < ApplicationController
+	before_action :logged_in_user
   def create
   	@like = Like.create(user_id: current_user.id, propose_id: params[:propose_id])
     redirect_to :back

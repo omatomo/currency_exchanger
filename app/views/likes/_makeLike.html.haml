@@ -1,5 +1,10 @@
 %span
-  = link_to(propose_likes_path(propose), method: :post, id: "like-button") do
-    .fa.fa-star-o{"aria-hidden" => "true", style: "color: yellow"}
-%span.like_count
-  = propose.likes_count
+  = link_to propose_likes_path(propose), method: :post, id: "like-button", style: "text-decoration: none" do
+    .fa.fa-star-o.fa-2x{"aria-hidden" => "true", style: "color: yellow"}
+- if propose.likes_count == nil
+  %span.like_count
+    0
+- else
+  %span.like_count
+    = propose.likes_count
+件

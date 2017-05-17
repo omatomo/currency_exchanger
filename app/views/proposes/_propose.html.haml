@@ -1,4 +1,3 @@
-- provide(:title, "")
 .propose_content
   .username
     = link_to propose.user.name, user_path(propose.user)
@@ -10,15 +9,30 @@
   .havecurrency
     = propose.amount
     = propose.have_currency.currency
+  .have_image
+    = image_tag propose.have_currency.image, :size => "17x17"
   .wantcurrency
     = propose.want_currency.currency
+  .want_image
+    = image_tag propose.want_currency.image, :size => "17x17"
   .likes
     = render 'likes/like', propose: propose
   .propose_detail
-    = button_to "詳細を見る", propose_path(propose), method: :get
+    - pinpoint = RequestMatch.find_by(propose_id: propose.id)
+    - if !pinpoint.nil? && pinpoint.negotiated == true
+      マッチング済みです。
+    - else
+      = button_to "詳細を見る", propose_path(propose), method: :get
   - if !current_user.nil? && current_user.id == propose.user_id
     .propose_handle
-      = link_to "編集", edit_propose_path(propose)
-      = link_to "削除", propose_path(propose), method: :delete
+      = link_to "(編集", edit_propose_path(propose)
+      = link_to "削除)", propose_path(propose), method: :delete
+  .request_condition
+  - request_match = RequestMatch.find_by(propose_id: propose.id)
+  - if request_match && request_match.negotiated == true
+  - elsif request_match && request_match.negotiated == false
+    リクエスト送信済み
+  - else
+    リクエスト待ち
 
 

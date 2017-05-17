@@ -1,5 +1,5 @@
 - provide(:title, @user.name)
-%div
+.upper
   %aside
     %section
       %h1
@@ -8,3 +8,32 @@
       = render 'shared/stats'
   %div
     = render 'follow_form' if logged_in?
+%ul#myTab.nav.nav-tabs{:role => "tablist"}
+  %li.nav-item
+    %a.nav-link.active{"aria-controls" => "home", "data-toggle" => "tab", :href => "#home", :role => "tab"} 自分の投稿
+  %li.nav-item
+    %a.nav-link{"aria-controls" => "profile", "data-toggle" => "tab", :href => "#profile", :role => "tab"} お気に入りした投稿
+  %li.nav-item
+    %a.nav-link{"aria-controls" => "messages", "data-toggle" => "tab", :href => "#messages", :role => "tab"} リクエストした投稿
+  %li.nav-item
+    %a.nav-link{"aria-controls" => "settings", "data-toggle" => "tab", :href => "#settings", :role => "tab"} マッチングした投稿
+.tab-content
+  #home.tab-pane.active{:role => "tabpanel"}
+    - @my_proposes.each do |propose|
+      = render 'proposes/propose', propose: propose
+  #profile.tab-pane{:role => "tabpanel"}
+    - @my_likes.each do |propose|
+      = render 'proposes/propose', propose: propose
+  #messages.tab-pane{:role => "tabpanel"}
+    - @requests.each do |propose|
+      = render 'proposes/propose', propose: propose
+  #settings.tab-pane{:role => "tabpanel"}
+    - if @matched_request.empty?
+      該当する投稿はありません。
+    - else
+      - @matched_request.each do |propose|
+        = render 'proposes/propose', propose: propose
+:javascript
+  $(function () {
+    $('#myTab a:first').tab('show')
+  })

@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
 
 
 	has_many :proposes, dependent: :destroy
+  has_many :likes
 
 	validates :name,  presence: true,
 	                    length: { maximum: 50}
