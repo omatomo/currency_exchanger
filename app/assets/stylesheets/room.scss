@@ -1,0 +1,100 @@
+$color: #ffffff;
+$color2: #999999;
+
+
+.contents{
+  height: calc(100% - 50px);
+  width: 100%;
+  bottom: 50px;
+  &__top{
+    height: 100%;
+    margin: 46px 40px 70px 40px;
+    // overflow-y: scroll;
+    .message{
+      // padding-bottom: 30px;
+      // padding-top: 30px;
+      // width: 100%;
+      &__case{
+        height: 100%;
+        margin-bottom: -30px;
+        list-style: none;
+        &__name{
+          font-size: 16px;
+          font-weight: bold;
+          color: #434A54;
+        }
+        &__time{
+          font-size: 12px;
+          color: $color2;
+          margin-left: 10px;
+        }
+        &__word{
+          font-size: 13px;
+          color: #434A54;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}
+.bottom{
+  background-color: #d3d3d3;
+  width: 100%;
+  position: absolute;
+  position: fixed;
+  bottom: 0px;
+  z-index: 2;
+  height: 73px;
+  &__box{
+    padding: 20px 40px;
+    position: relative;
+      &__left{
+        background-color: white;
+        float: left;
+        margin: 0 0 10px 40px;
+        font-size:  16px;
+        color: #a9a9a9;
+        font-color: black;
+        height: 40px;
+        width: 800px;
+        border-radius: 6px;
+      }
+      &__right__text{
+        background-color: #38AEF0;
+        float: left;
+        margin: 0 0 30px 10px;
+        color: white;
+        border: 2px solid #58ACFA;
+        height: 38px;
+        border-radius: 6px;
+      }
+  }
+}
+
+.popover-example .popover {
+  position: relative;
+  display: inline-block;
+  margin: 20px;
+  z-index: 1;
+  word-wrap:break-word;
+  max-width: 1000px;
+  font-size: 13px;
+}
+
+.userimage{
+  border-radius: 90%;
+  height: 50px;
+  width:  50px;
+  border: 1px solid black;
+  margin-bottom: 50px;
+}
+
+.pagetop {
+  position: absolute;
+  // float: left;
+  // margin: 0 0 30px 10px;
+  top: 18px;
+  right: 300px;
+}
+
+

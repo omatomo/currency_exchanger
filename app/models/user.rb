@@ -18,6 +18,12 @@ class User < ActiveRecord::Base
   has_many :request_creates, class_name: "RequestMatch", foreign_key: "request_user_id"
   has_many :posters, through: :request_creates, source: :post_user
 
+  has_many :postman_rooms, class_name: "Room", foreign_key: "postman_id", dependent: :destroy
+  has_many :requestmans, through: :postman_rooms, source: :requestman
+
+  has_many :requestman_rooms, class_name: "Room", foreign_key: "requestman_id", dependent: :destroy
+  has_many :postmans, through: :requestman_rooms, source: :postman
+
   mount_uploader :image, ImageUploader
 
 

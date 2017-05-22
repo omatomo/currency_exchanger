@@ -13,6 +13,7 @@ class UsersController < ApplicationController
     @my_proposes  = @user.proposes
     @my_likes     = @user.likes.map(&:propose)
     @requests     = @user.request_creates.map(&:propose)
+    @requested    = @user.post_creates.map(&:propose)
 
     requests      = @user.request_creates
     matched_request = []

@@ -22,6 +22,7 @@
   - else
     = form_for(current_user.request_creates.find_by(propose_id: @propose.id), method: :delete) do |f|
       = hidden_field_tag :propose_id, @propose.id
+      = hidden_field_tag :post_user_id, @propose.user_id
       = f.submit "リクエストをキャンセルする。"
     -# (propose_id: @propose.id, post_user_id: @propose.user_id)
     -# propose.request_match.request_user_id?(current_user)

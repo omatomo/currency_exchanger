@@ -17,22 +17,55 @@
     = image_tag propose.want_currency.image, :size => "17x17"
   .likes
     = render 'likes/like', propose: propose
-  .propose_detail
-    - pinpoint = RequestMatch.find_by(propose_id: propose.id)
-    - if !pinpoint.nil? && pinpoint.negotiated == true
-      マッチング済みです。
-    - else
-      = button_to "詳細を見る", propose_path(propose), method: :get
+  -# .propose_detail
+  -#   - pinpoint = RequestMatch.find_by(propose_id: propose.id)
+  -#   - if !pinpoint.nil? && pinpoint.negotiated == true
+  -#     マッチング済みです。
+  -#   - else
+  -#     = button_to "詳細を見る", propose_path(propose), method: :get
   - if !current_user.nil? && current_user.id == propose.user_id
     .propose_handle
-      = link_to "(編集", edit_propose_path(propose)
-      = link_to "削除)", propose_path(propose), method: :delete
+      = link_to "編集", edit_propose_path(propose)
+      = link_to "削除", propose_path(propose), method: :delete
+  - else
+    - request = RequestMatch.find_by(propose_id: propose.id)
+    - if logged_in?
+      - if request.nil?
+        = form_for(current_user.request_creates.build) do |f|
+          = hidden_field_tag :post_user_id, propose.user_id
+          = hidden_field_tag :propose_id, propose.id
+          = f.submit "リクエストを送信する"
+      - elsif !request.nil?
+        - if request.request_user_id == current_user.id
+          = form_for(current_user.request_creates.find_by(propose_id: propose.id), method: :delete) do |f|
+            = hidden_field_tag :propose_id, propose.id
+            = hidden_field_tag :post_user_id, propose.user_id
+            = f.submit "リクエストをキャンセルする。"
+        - else
+          キャンセルをお待ちください。
+    - else
+      = button_to "リクエストを送信する。", request_matches_path
+
+  -# #自分の投稿か他人の投稿かによって分岐させる。
   .request_condition
   - request_match = RequestMatch.find_by(propose_id: propose.id)
   - if request_match && request_match.negotiated == true
   - elsif request_match && request_match.negotiated == false
     リクエスト送信済み
+    -# - requestman = RequestMatch.find_by(post_user_id:)
+    -# - room = Room.find_by(requestman_id: )
+    -# = link_to "メッセージルーム", room_path
   - else
     リクエスト待ち
-
+.card{:style => "width: 20rem;"}
+  .card-block
+    %h4.card-title Card title
+    %p.card-text Some quick example text to build on the card title and make up the bulk of the card's content.
+  %ul.list-group.list-group-flush
+    %li.list-group-item Cras justo odio
+    %li.list-group-item Dapibus ac facilisis in
+    %li.list-group-item Vestibulum at eros
+  .card-block
+    %a.card-link{:href => "#"} Card link
+    %a.card-link{:href => "#"} Another link
 

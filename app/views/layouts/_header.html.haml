@@ -33,7 +33,9 @@
           %span.icon-bar
           %span.icon-bar
           %span.icon-bar
-        %a.navbar-brand{:href => root_path} CurrencyEmergency
+        %a.navbar-brand{:href => root_path}
+          = image_tag 'favicon.ico', :size => "40x40"
+          CurrencyEmergency
       #bs-example-navbar-collapse-1.collapse.navbar-collapse
         %ul.nav.navbar-nav
           -if logged_in?
@@ -44,9 +46,23 @@
               %li= link_to "全ユーザー", users_path
             %li.newpost
               = link_to "投稿する", new_propose_path, method: :get
+            %li= link_to "メッセージルーム", rooms_path
           -else
             %li= link_to "ログイン", login_path
             %li= link_to "アカウント作成", signup_path
+        %p
+          %li.btn.btn-primary{"aria-controls" => "collapseExample", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#collapseExample"}
+            交換したい通貨を検索する。
+        #collapseExample.collapse
+          .card.card-block
+            = form_for(:propose, url: search_proposes_path, method: :get) do |f|
+              = f.label :have_currency_id, "所持している通貨"
+              = f.collection_select :have_currency_id, Currency.all, :id, :currency, :prompt => "通貨をお選びください。", class: "form_control"
+              = f.label :want_currency_id, "欲しい通貨"
+              = f.collection_select :want_currency_id, Currency.all, :id, :currency, :prompt => "通貨をお選びください。"
+              = f.submit "検索する。"
+            .moji
+              (どちらかに値を入力してください。)
 
         -# %li.dropdown
         -#   %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}

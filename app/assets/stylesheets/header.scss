@@ -1,3 +1,16 @@
 header{
-	height: 120px;
+	position: fixed;
+	width: 100%;
+	top: 0px;
+	z-index: 2;
+}
+
+.navbar-brand{
+  margin-top: -12px;
+  font-size: 25px;
+  font-family: cursive;
+}
+
+.navbar-nav{
+	font-family: Courier New;
 }

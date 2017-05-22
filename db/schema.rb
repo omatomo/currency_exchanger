@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170516133223) do
+ActiveRecord::Schema.define(version: 20170521072848) do
 
   create_table "currencies", force: :cascade do |t|
     t.string "currency", limit: 255
@@ -28,6 +28,17 @@ ActiveRecord::Schema.define(version: 20170516133223) do
   add_index "likes", ["propose_id"], name: "index_likes_on_propose_id", using: :btree
   add_index "likes", ["user_id", "propose_id"], name: "index_likes_on_user_id_and_propose_id", unique: true, using: :btree
   add_index "likes", ["user_id"], name: "index_likes_on_user_id", using: :btree
+
+  create_table "messages", force: :cascade do |t|
+    t.text     "content",    limit: 65535
+    t.integer  "user_id",    limit: 4
+    t.integer  "room_id",    limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "messages", ["room_id"], name: "index_messages_on_room_id", using: :btree
+  add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
   create_table "proposes", force: :cascade do |t|
     t.text     "comment",          limit: 65535
@@ -64,10 +75,24 @@ ActiveRecord::Schema.define(version: 20170516133223) do
     t.datetime "updated_at",                                null: false
   end
 
-  add_index "request_matches", ["post_user_id", "request_user_id", "propose_id"], name: "three_id_column_must_be_unique", unique: true, using: :btree
   add_index "request_matches", ["post_user_id"], name: "index_request_matches_on_post_user_id", using: :btree
   add_index "request_matches", ["propose_id"], name: "index_request_matches_on_propose_id", using: :btree
+  add_index "request_matches", ["propose_id"], name: "propose_id_must_be_unique", unique: true, using: :btree
+  add_index "request_matches", ["request_user_id", "propose_id"], name: "index_request_matches_on_request_user_id_and_propose_id", unique: true, using: :btree
   add_index "request_matches", ["request_user_id"], name: "index_request_matches_on_request_user_id", using: :btree
+
+  create_table "rooms", force: :cascade do |t|
+    t.integer  "requestman_id", limit: 4
+    t.integer  "postman_id",    limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "propose_id",    limit: 4
+  end
+
+  add_index "rooms", ["postman_id"], name: "index_rooms_on_postman_id", using: :btree
+  add_index "rooms", ["propose_id"], name: "index_rooms_on_propose_id", using: :btree
+  add_index "rooms", ["requestman_id", "propose_id"], name: "index_rooms_on_requestman_id_and_propose_id", unique: true, using: :btree
+  add_index "rooms", ["requestman_id"], name: "index_rooms_on_requestman_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name",              limit: 255
@@ -89,6 +114,9 @@ ActiveRecord::Schema.define(version: 20170516133223) do
 
   add_foreign_key "likes", "proposes"
   add_foreign_key "likes", "users"
+  add_foreign_key "messages", "rooms"
+  add_foreign_key "messages", "users"
   add_foreign_key "proposes", "users"
   add_foreign_key "request_matches", "proposes"
+  add_foreign_key "rooms", "proposes"
 end

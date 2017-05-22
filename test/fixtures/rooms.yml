@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  requestman_id: 1
+  postman_id: 1
+  propose_id: 
+
+two:
+  requestman_id: 1
+  postman_id: 1
+  propose_id: 

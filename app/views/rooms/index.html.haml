@@ -1,0 +1,18 @@
+%ul#myTab.nav.nav-tabs{:role => "tablist"}
+  %li.nav-item.active
+    %a.nav-link{"aria-controls" => "messages", "data-toggle" => "tab", :href => "#messages", :role => "tab"} リクエストした投稿
+  %li.nav-item
+    %a.nav-link{"aria-controls" => "aaaaaa", "data-toggle" => "tab", :href => "#aaaaaa", :role => "tab"} リクエストされた投稿
+.tab-content
+  #messages.tab-pane.active{:role => "tabpanel"}
+    - if @requests.empty?
+      該当する投稿はありません。
+    - else
+      - @requests.each do |propose|
+        = render 'proposes/propose', propose: propose
+  #aaaaaa.tab-pane{:role => "tabpanel"}
+    - if @requested.empty?
+      該当する投稿はありません。
+    - else
+      - @requested.each do |propose|
+        = render 'proposes/propose', propose: propose

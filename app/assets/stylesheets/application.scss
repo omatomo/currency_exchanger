@@ -6,4 +6,37 @@
 @import "./fontawsome";
 @import "./proposes";
 @import "./header";
-@import "./user_show"
+@import "./user_show";
+@import "./room";
+
+// headerをfixedした時にheaderに潜り込んでしまうのを防ぐ。
+// .user_show{
+// 	padding-top: 40px;
+// }
+
+// .propose_index{
+// 	padding-top: 60px;
+// 	width: 100%;
+// }
+
+// .user_edit{
+// 	padding-top: 40px
+// }
+
+.containers{
+	padding-top: 52px
+}
+.box{
+	padding-top: 55px;
+}
+
+.flash{
+	width: 100%;
+	z-index: 2;
+}
+
+.flash_only_room_show{
+	position: fixed;
+	width: 100%;
+	z-index: 2;
+}

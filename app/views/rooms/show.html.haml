@@ -1,0 +1,65 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title= full_title(yield(:title))
+    = favicon_link_tag
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    = render 'layouts/header'
+    .containers
+      .flash_only_room_show
+        - flash.each do |message_type, message|
+          %div{:class => "alert alert-#{message_type}"}= message
+.contents
+  .contents__top
+    %h1 メッセージ
+    %ul.message
+      -@room.messages.each do|message|
+        %li.message__case
+          %span.userphoto
+            - if message.user.image.url
+              = image_tag message.user.image.thumb, :class => "userimage"
+            - else
+              = image_tag 'RS=^ADBhf8bg8a_DFSi.jpg', :size => "50x50", :class => "userimage"
+          %span.popover-example
+            .popover.right
+              .arrow
+              %h3.popover-title
+                = message.user.name
+                %span.message__case__time
+                  %i.fa.fa-clock-o.fa-lg{"aria-hidden" => "true"}
+                  = date_format(message.created_at)
+                - if current_user.id == message.user.id
+                  = link_to "　　削除", room_message_path(@room.id, message.id), method: :delete, style: "text-decoration: none"
+              .popover-content
+                = message.content
+.bottom
+  .bottom__box
+    = form_for [@room, @message] do |f|
+      = f.text_field :content, placeholder: "  メッセージを入力してください。", class: "bottom__box__left"
+      = f.submit "送信する", class: "bottom__box__right__text"
+  %p.pagetop
+    %a{:href => "#wrap"}
+      %i.fa.fa-arrow-circle-up.fa-3x
+:javascript
+  setTimeout(function() {
+    window.scroll(0,$(document).height());
+  },0);
+
+  $(document).ready(function() {
+    var pagetop = $('.pagetop');
+      $(window).scroll(function () {
+         if ($(this).scrollTop() > 100) {
+              pagetop.fadeIn();
+         } else {
+              pagetop.fadeOut();
+              }
+         });
+         pagetop.click(function () {
+             $('body, html').animate({ scrollTop: 0 }, 400);
+                return false;
+     });
+  });

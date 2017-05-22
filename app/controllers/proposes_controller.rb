@@ -61,8 +61,9 @@ class ProposesController < ApplicationController
         render 'index'
       end
     elsif want.blank? && have.blank?
-      flash.now[:danger] = "不正な値です。"
+      flash.now[:danger] = "不正な値です。全てのpostを表示します。"
       # @proposes = Propose.paginate(page: params[:page]).limit(5)
+      @proposes = Propose.paginate(page: params[:page]).limit(5)
       render 'index'
     elsif have && want.blank?
       proposes = Propose.where(want_currency_id: have)
@@ -81,7 +82,7 @@ class ProposesController < ApplicationController
         render 'index'
       else
         @proposes = proposes.paginate(page: params[:page]).limit(5)
-        flash.now[:success] = "#{fack.currency} を所持している人の検索結果一覧です。"
+        flash.now[:success] = "#{thanks.currency} を所持している人の検索結果一覧です。"
         render 'index'
       end
     end
