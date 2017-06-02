@@ -1,23 +1,10 @@
 - provide(:title, '')
 .box
-  %p
-    %a.btn.btn-primary{"aria-controls" => "collapseExample", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#collapseExample"}
-      交換したい通貨を検索する。
-  #collapseExample.collapse
-    .card.card-block
-      = form_for(:propose, url: search_proposes_path, method: :get) do |f|
-        = f.label :have_currency_id, "所持している通貨"
-        = f.collection_select :have_currency_id, Currency.all, :id, :currency, :prompt => "通貨をお選びください。", class: "form_control"
-        = f.label :want_currency_id, "欲しい通貨"
-        = f.collection_select :want_currency_id, Currency.all, :id, :currency, :prompt => "通貨をお選びください。"
-        = f.submit "検索する。"
-      .moji
-        (どちらかに値を入力してください。)
   - if @proposes == "該当する結果は見つかりませんでした。"
     = @proposes
     = link_to "(前のページへ戻る)", :back
   - else
-    %ul
+    %ul.proposes
       = render @proposes if @proposes
     .will_paginate
       = will_paginate @proposes if @proposes

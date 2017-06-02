@@ -15,7 +15,27 @@
           %div{:class => "alert alert-#{message_type}"}= message
 .contents
   .contents__top
-    %h1 メッセージ
+    .upper_image
+      %span.room_flag
+        = image_tag @room.propose.want_currency.image, :size => "50x40"
+        %i.fa.fa-times.fa-lg{"aria-hidden" => "true"}
+        = image_tag @room.propose.have_currency.image, :size => "50x40"
+      %span.where_airport
+        %strong.where
+          Where
+        %i.fa.fa-plane.fa-lg{"aria-hidden" => "true"}
+        - if !@room.propose.airport.blank?
+          = @room.propose.airport.airport
+        - else
+          指定なし
+      %span.when_airport
+        %strong.when
+          When
+        %i.fa.fa-calendar.fa-lg{"aria-hidden" => "true"}
+        - if !@room.propose.gotime.blank?
+          = @room.propose.gotime
+        - else
+          指定なし
     %ul.message
       -@room.messages.each do|message|
         %li.message__case

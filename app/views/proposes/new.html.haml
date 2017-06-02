@@ -1,15 +1,49 @@
 .box
-  %h1 通貨交換作成
-  .row
+  %h1.newpropose
+    通貨交換作成
+  .row.newpropose
     .col-md-6.col-md-offset-3
       = form_for(@propose) do |f|
         = render 'shared/error_messages', object: f.object
-        = f.label :comment, "内容"
-        = f.text_field :comment, class: 'form-control'
-        -# = f.label :have_currency_id, "所持してる通貨"
         = f.label :amount, "所持通貨の総額"
         = f.number_field :amount, placeholder: "0以上の半角英数字", class: 'form-control'
+        = f.label :have_currency_id, "所持してる通貨"
         = f.collection_select :have_currency_id, Currency.all, :id, :currency, :prompt => "通貨をお選びください。", class: 'form-control'
-        = f.label :want_currency_id, "欲しい通貨"
+        %span.want_currency_new
+          = f.label :want_currency_id, "欲しい通貨"
         = f.collection_select :want_currency_id, Currency.all, :id, :currency, :prompt => "通貨をお選びください。", class: 'form-control'
+        %span.input-group.date.datepicker
+          %span.glyphicon.glyphicon-calendar.form-control.input-group-addon
+          = f.text_field :gotime, class: 'form-control input-group-addon gotime', placeholder: "出入国日時をお選びください。"
+        .airport_choice
+          = f.label :airport_id, "利用する空港"
+          = f.collection_select :airport_id, Airport.all, :id, :airport, :prompt => "空港をお選びください。", class: 'form-control'
         = f.submit "送信する。", class: 'form-control'
+
+:javascript
+  var data = {'data-date-format': 'YYYY-MM-DD hh:mm:ss' };
+  $(function(){
+    $('.datepicker').attr(data);
+    $('.datepicker').datetimepicker();
+  });
+
+:css
+  .newpropose{
+    text-align: center;
+    margin-top: 10px;
+    padding-top: 50px;
+  }
+
+  .form-control{
+    width: 400px;
+    margin: 15px auto;
+  }
+
+  .datepicker{
+    margin: 0 auto 6px;
+  }
+
+  .airport_choice{
+    margin: 15px 0;
+  }
+

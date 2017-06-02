@@ -44,6 +44,8 @@ GEM
       sass (~> 3.2)
     bootstrap-will_paginate (0.0.10)
       will_paginate
+    bootstrap3-datetimepicker-rails (4.17.43)
+      momentjs-rails (>= 2.8.1)
     builder (3.2.3)
     byebug (9.0.6)
     carrierwave (1.0.0)
@@ -115,6 +117,8 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
     minitest (5.10.1)
+    momentjs-rails (2.15.1)
+      railties (>= 3.1)
     multi_json (1.12.1)
     mysql2 (0.3.18)
     net-http-digest_auth (1.4.1)
@@ -209,6 +213,7 @@ DEPENDENCIES
   bcrypt (= 3.1.11)
   bootstrap-sass (= 3.2.0.2)
   bootstrap-will_paginate (= 0.0.10)
+  bootstrap3-datetimepicker-rails
   byebug
   carrierwave
   coffee-rails (~> 4.1.0)
@@ -219,6 +224,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   mechanize
+  momentjs-rails
   mysql2 (= 0.3.18)
   pry-rails
   rails (= 4.2.6)

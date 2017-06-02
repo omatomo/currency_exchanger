@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170521072848) do
+ActiveRecord::Schema.define(version: 20170523072146) do
+
+  create_table "airports", force: :cascade do |t|
+    t.string "airport", limit: 255
+  end
 
   create_table "currencies", force: :cascade do |t|
     t.string "currency", limit: 255
@@ -49,8 +53,11 @@ ActiveRecord::Schema.define(version: 20170521072848) do
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
     t.integer  "likes_count",      limit: 4
+    t.text     "gotime",           limit: 65535
+    t.integer  "airport_id",       limit: 4
   end
 
+  add_index "proposes", ["airport_id"], name: "index_proposes_on_airport_id", using: :btree
   add_index "proposes", ["have_currency_id"], name: "index_proposes_on_have_currency_id", using: :btree
   add_index "proposes", ["user_id"], name: "index_proposes_on_user_id", using: :btree
   add_index "proposes", ["want_currency_id"], name: "index_proposes_on_want_currency_id", using: :btree
@@ -116,6 +123,7 @@ ActiveRecord::Schema.define(version: 20170521072848) do
   add_foreign_key "likes", "users"
   add_foreign_key "messages", "rooms"
   add_foreign_key "messages", "users"
+  add_foreign_key "proposes", "airports"
   add_foreign_key "proposes", "users"
   add_foreign_key "request_matches", "proposes"
   add_foreign_key "rooms", "proposes"

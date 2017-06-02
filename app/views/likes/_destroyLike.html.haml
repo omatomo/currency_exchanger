@@ -1,6 +1,6 @@
 %span
   = link_to propose_like_path(id: 1, propose_id: propose.id), method: :delete, id: "like-button", style: "text-decoration: none" do
-    .fa.fa-star.fa-2x{"aria-hidden" => "true", style: "color: yellow"}
+    .fa.fa-heart.fa-2x{"aria-hidden" => "true", style: "color: red"}
 - if propose.likes_count == nil
   %span.like_count
     0

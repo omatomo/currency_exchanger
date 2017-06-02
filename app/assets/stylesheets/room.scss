@@ -77,7 +77,7 @@ $color2: #999999;
   margin: 20px;
   z-index: 1;
   word-wrap:break-word;
-  max-width: 1000px;
+  max-width: 600px;
   font-size: 13px;
 }
 
@@ -85,7 +85,7 @@ $color2: #999999;
   border-radius: 90%;
   height: 50px;
   width:  50px;
-  border: 1px solid black;
+  border: 1px solid #aaa;
   margin-bottom: 50px;
 }
 
@@ -95,6 +95,16 @@ $color2: #999999;
   // margin: 0 0 30px 10px;
   top: 18px;
   right: 300px;
+}
+
+.where_airport{
+  padding: 10px;box-shadow: 0 5px 2px -2px #c38743;
+  margin-left: 20px;
+}
+
+.when_airport{
+  padding: 10px;box-shadow: 0 5px 2px -2px #c38743;
+  margin-right: 30px;
 }
 
 

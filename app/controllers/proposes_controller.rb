@@ -31,11 +31,11 @@ class ProposesController < ApplicationController
   def destroy
     propose = Propose.find(params[:id]).destroy
     flash[:success] = "投稿を削除しました。"
-    redirect_to proposes_path
+    redirect_to :back
   end
 
   def index
-    # @proposes = Propose.paginate(page: params[:page]).limit(8)
+    @proposes = Propose.paginate(page: params[:page]).order('created_at DESC').limit(6)
   end
 
   def show
@@ -56,14 +56,13 @@ class ProposesController < ApplicationController
         @proposes = "該当する結果は見つかりませんでした。"
         render 'index'
       else
-        @proposes = proposes.paginate(page: params[:page]).limit(5)
+        @proposes = proposes.paginate(page: params[:page]).limit(6)
         flash.now[:success] = "#{thanks.currency} を所持している人と, #{hello.currency} を必要としている人の検索結果一覧です。"
         render 'index'
       end
     elsif want.blank? && have.blank?
       flash.now[:danger] = "不正な値です。全てのpostを表示します。"
-      # @proposes = Propose.paginate(page: params[:page]).limit(5)
-      @proposes = Propose.paginate(page: params[:page]).limit(5)
+      @proposes = Propose.paginate(page: params[:page]).limit(6)
       render 'index'
     elsif have && want.blank?
       proposes = Propose.where(want_currency_id: have)
@@ -71,7 +70,7 @@ class ProposesController < ApplicationController
         @proposes = "該当する結果は見つかりませんでした。"
         render 'index'
       else
-        @proposes = proposes.paginate(page: params[:page]).limit(5)
+        @proposes = proposes.paginate(page: params[:page]).limit(6)
         flash.now[:success] = "#{hello.currency} を必要としている人の検索結果一覧です。"
         render 'index'
       end
@@ -81,7 +80,7 @@ class ProposesController < ApplicationController
         @proposes = "該当する結果は見つかりませんでした。"
         render 'index'
       else
-        @proposes = proposes.paginate(page: params[:page]).limit(5)
+        @proposes = proposes.paginate(page: params[:page]).limit(6)
         flash.now[:success] = "#{thanks.currency} を所持している人の検索結果一覧です。"
         render 'index'
       end
@@ -90,7 +89,7 @@ class ProposesController < ApplicationController
 
   private
   def propose_params
-    params.require(:propose).permit(:comment, :amount, :have_currency_id, :want_currency_id).merge(user_id: current_user.id)
+    params.require(:propose).permit(:comment, :amount, :have_currency_id, :want_currency_id, :gotime, :airport_id).merge(user_id: current_user.id)
   end
 
   def right_user

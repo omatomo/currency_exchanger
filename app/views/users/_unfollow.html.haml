@@ -1,3 +1,3 @@
 = form_for(current_user.activerelationships.find_by(followed_id: @user.id), html: { method: :delete }, remote: true) do |f|
   / relationship DELETE /relationships/:id(.:format)にふくませる:idを設定。
-  = f.submit "Unfollow", class: "btn"
+  = f.submit "フォローをやめる", class: "btn"

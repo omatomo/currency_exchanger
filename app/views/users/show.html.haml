@@ -1,22 +1,22 @@
 - provide(:title, @user.name)
-.upper
+%span.upper
   %aside
-    %section
-      %h1
+    %section.namae.clearfix
+      %span.proposeuserphoto
+        - if @user.image.url
+          = image_tag @user.image.thumb, :size => "65x65", :class => "userimageuser"
+        - else
+          = image_tag 'RS=^ADBhf8bg8a_DFSi.jpg', :size => "65x65", :class => "userimageuser"
+      %h1.usershowname
         = @user.name
-    %section
-      = render 'shared/stats'
-  %div
-    = render 'follow_form' if logged_in?
+      .follow
+        = render 'shared/stats'
+        = render 'follow_form' if logged_in?
 %ul#myTab.nav.nav-tabs{:role => "tablist"}
   %li.nav-item
     %a.nav-link.active{"aria-controls" => "home", "data-toggle" => "tab", :href => "#home", :role => "tab"} 自分の投稿一覧
   %li.nav-item
     %a.nav-link{"aria-controls" => "profile", "data-toggle" => "tab", :href => "#profile", :role => "tab"} お気に入り投稿一覧
-  %li.nav-item
-    %a.nav-link{"aria-controls" => "messages", "data-toggle" => "tab", :href => "#messages", :role => "tab"} リクエストした投稿
-  %li.nav-item
-    %a.nav-link{"aria-controls" => "aaaaaa", "data-toggle" => "tab", :href => "#aaaaaa", :role => "tab"} リクエストされた投稿
   %li.nav-item
     %a.nav-link{"aria-controls" => "settings", "data-toggle" => "tab", :href => "#settings", :role => "tab"} マッチングした投稿一覧
 .tab-content
@@ -32,18 +32,6 @@
     - else
       - @my_likes.each do |propose|
         = render 'proposes/propose', propose: propose
-  #messages.tab-pane{:role => "tabpanel"}
-    - if @requests.empty?
-      該当する投稿はありません。
-    - else
-      - @requests.each do |propose|
-        = render 'proposes/propose', propose: propose
-  #aaaaaa.tab-pane{:role => "tabpanel"}
-    - if @requested.empty?
-      該当する投稿はありません。
-    - else
-      - @requested.each do |propose|
-        = render 'proposes/propose', propose: propose
   #settings.tab-pane{:role => "tabpanel"}
     - if @matched_request.empty?
       該当する投稿はありません。
@@ -54,3 +42,19 @@
   $(function () {
     $('#myTab a:first').tab('show')
   })
+
+:css
+  .usershowname{
+    margin-bottom: 10px;
+    line-height: 20px;
+    float: left;
+  }
+
+  .namae{
+    margin: 40px;
+  }
+
+  .follow{
+    float: left;
+    padding: 10px 10px 10px 10px;
+  }

@@ -7,7 +7,7 @@
     = render 'likes/makeLike', propose: propose
 - else
   = link_to propose_like_path(id: 1, propose_id: propose.id), method: :delete, id: "like-button", style: "text-decoration: none" do
-    .fa.fa-star-o.fa-2x{"aria-hidden" => "true", style: "color: yellow"}
+    .fa.fa-heart-o.fa-2x{"aria-hidden" => "true", style: "color: red"}
   - if propose.likes_count == nil
     %span.like_count
       0
@@ -15,3 +15,4 @@
     %span.like_count
       = propose.likes_count
     件
+.likes

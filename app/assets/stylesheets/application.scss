@@ -8,6 +8,7 @@
 @import "./header";
 @import "./user_show";
 @import "./room";
+@import "bootstrap-datetimepicker"ß;
 
 // headerをfixedした時にheaderに潜り込んでしまうのを防ぐ。
 // .user_show{
@@ -22,12 +23,27 @@
 // .user_edit{
 // 	padding-top: 40px
 // }
+header{
+	height: 52px;
+}
+body{
+	background-color: #efefef;
+}
 
 .containers{
-	padding-top: 52px
+	padding-top: 52px;
 }
+
+.container-fluid{
+	background-color: #ffffff
+}
+
 .box{
-	padding-top: 55px;
+	padding-top: 30px;
+}
+
+.proposes{
+	margin: 0 auto;
 }
 
 .flash{
@@ -39,4 +55,121 @@
 	position: fixed;
 	width: 100%;
 	z-index: 2;
+}
+
+.alert{
+	margin-bottom: 0px;
+}
+
+
+// _propose.html.erbのproposeたち
+.cardcard{
+	border-left: 3px solid #ccc;
+	border-bottom: 3px solid #ccc;
+	border-radius: 8px;
+	word-wrap: break-word;
+	float: left;
+	margin: 30px 39px;
+	height: 408px;
+	background-color: #ffffff;
+}
+
+.text{
+	height: 160px;
+	clear: both;
+	// padding-top: 13px;
+	margin-left: 14px;
+}
+
+
+.card-block {
+	padding: 13px;
+}
+
+.list-group-flush{
+	padding: 13px;
+	margin-bottom: 10px;
+}
+
+.proposeuserphoto{
+	float: left;
+	height: 20px;
+	margin: -5px 5px 5px 5px;
+}
+
+.card-title{
+	height: 20px;
+	float: left;
+  margin: 5px 10px 0px 8px;
+  font-family: monospace;
+}
+
+.userimageuser{
+  border-radius: 90%;
+  border: 1px solid #aaa;
+}
+
+hr {
+  height: 0px;
+  border-top: 3px #ccc solid;
+}
+
+.amount{
+	font-size: 25px;
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+.have_image{
+	margin-bottom: 5px;
+}
+
+.fa-arrow-down{
+	margin: 10px 0;
+}
+
+.propose_handle{
+	height: 10px;
+	float: right;
+	margin: 8px 5px 5px 5px;
+}
+.airtime{
+	font-size: 15px;
+	font-weight: bold;
+}
+.airport{
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.send_request{
+	font-family: cursive;
+	margin: 10px 0 0 0;
+}
+
+.likeunlike{
+	margin: 0 0 0 15px;
+}
+.list-group-item{
+	border: 1px solid #aaa;
+}
+
+.request_cancel{
+	color: red;
+}
+.apper_image{
+	float: left;
+}
+.when{
+	font-size: 30px;
+	font-family: sans-serif;
+}
+
+.where{
+	font-size: 30px;
+	font-family: sans-serif;
+}
+
+.nav-tabs{
+	margin: 0 auto;
 }

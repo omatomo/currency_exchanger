@@ -4,8 +4,9 @@ class Propose < ActiveRecord::Base
   belongs_to :want_currency, class_name: "Currency"
   has_many :request_match, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_one :room, dependent: :destroy
+  belongs_to:airport
 
-  validates :comment,          presence: true
   validates :have_currency_id, presence: true
   validates :want_currency_id, presence: true
   validate  :unique_currency

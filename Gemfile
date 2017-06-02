@@ -34,6 +34,8 @@ gem 'pry-rails'
 gem "font-awesome-rails"
 gem 'carrierwave'
 gem 'rmagick'
+gem 'momentjs-rails'
+gem 'bootstrap3-datetimepicker-rails'
 
 
 # Use ActiveModel has_secure_password
